@@ -1,3 +1,12 @@
 [gd_scene format=3 uid="uid://dgmkroacycflx"]
 
-[node name="Player" type="Node3D" unique_id=1074321211]
+[node name="Player" type="XROrigin3D" unique_id=1954827418]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=850318670]
+current = true
+
+[node name="LeftHand" type="XRController3D" parent="." unique_id=1348590199]
+tracker = &"left_hand"
+
+[node name="RightHand" type="XRController3D" parent="." unique_id=1003276543]
+tracker = &"right_hand"
