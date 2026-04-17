@@ -1,5 +1,17 @@
 # Godot
-   .godot/
-   
-   # Export
-   export_presets.cfg
+.godot/
+
+# Android
+.nomedia
+
+# Godot Exports
+export_presets.cfg
+export_credentials.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
