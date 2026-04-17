@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ug7tg1tbrj4f"]
 
+[ext_resource type="PackedScene" uid="uid://dgmkroacycflx" path="res://scenes/player/player.tscn" id="1_o5qli"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
 size = Vector3(5, 0.1, 5)
 
@@ -16,3 +18,5 @@ shape = SubResource("BoxShape3D_sgp6g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1452281192]
 mesh = SubResource("BoxMesh_o5qli")
+
+[node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
