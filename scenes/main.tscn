@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ug7tg1tbrj4f"]
 
+[ext_resource type="Script" uid="uid://chuuitgf326wf" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dgmkroacycflx" path="res://scenes/player/player.tscn" id="1_o5qli"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
@@ -9,6 +10,7 @@ size = Vector3(5, 0.1, 5)
 size = Vector3(5, 0.1, 5)
 
 [node name="Main" type="Node3D" unique_id=1708190583]
+script = ExtResource("1_0wfyh")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=452598525]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
