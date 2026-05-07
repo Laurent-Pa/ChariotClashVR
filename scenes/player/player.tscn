@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bq86r4yll8po" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_fullglove_low.tscn" id="1_dovo2"]
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_gmlin"]
+[ext_resource type="PackedScene" uid="uid://6uusxts6n6gm" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_direct.tscn" id="3_lvxji"]
+[ext_resource type="PackedScene" uid="uid://c4d13r420hnx2" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_turn.tscn" id="4_p47bc"]
 
 [node name="Player" type="XROrigin3D" unique_id=1954827418]
 
@@ -17,3 +19,7 @@ tracker = &"left_hand"
 tracker = &"right_hand"
 
 [node name="RightHand" parent="RightHand" unique_id=263338916 instance=ExtResource("2_gmlin")]
+
+[node name="MovementDesktopDirect" parent="." unique_id=131538683 instance=ExtResource("3_lvxji")]
+
+[node name="MovementDesktopTurn" parent="." unique_id=227154867 instance=ExtResource("4_p47bc")]
