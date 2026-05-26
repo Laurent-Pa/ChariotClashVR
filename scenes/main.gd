@@ -13,3 +13,5 @@ func _ready():
 		get_viewport().use_xr = true
 	else:
 		print("OpenXR not initialised, please check if your headset is connected")
+	
+	$Player.add_to_group("player")

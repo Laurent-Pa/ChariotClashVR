@@ -8,6 +8,9 @@
 export_presets.cfg
 export_credentials.cfg
 
+# Godot Exports
+*.import
+
 # Imported translations (automatically generated from CSV files)
 *.translation
 
