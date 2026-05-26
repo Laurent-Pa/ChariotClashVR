@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" path="res://scenes/bot/bot.tscn" id="1_bot"]
 [ext_resource type="PackedScene" uid="uid://dgmkroacycflx" path="res://scenes/player/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="3_tbgi4"]
-[ext_resource type="Script" uid="uid://ck4yn3hxuobj7" path="res://addons/godot-xr-tools/player/player_body.gd" id="4_tefeu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
 size = Vector3(5, 0.1, 5)
@@ -34,12 +33,7 @@ navigation_mesh = SubResource("NavigationMesh_arena")
 
 [node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
 
-[node name="PlayerBody" type="CharacterBody3D" parent="Player" unique_id=200242446 groups=["player_body"] instance=ExtResource("3_tbgi4")]
-process_priority = -100
-process_physics_priority = -100
-collision_layer = 524288
-collision_mask = 1023
-script = ExtResource("4_tefeu")
+[node name="PlayerBody" parent="Player" unique_id=200242446 instance=ExtResource("3_tbgi4")]
 
 [node name="Bot" parent="." unique_id=1429703082 instance=ExtResource("1_bot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09482932, 0, -3.6045294)
