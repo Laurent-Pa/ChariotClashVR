@@ -2,26 +2,91 @@
 
 [ext_resource type="Script" uid="uid://chuuitgf326wf" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dgmkroacycflx" path="res://scenes/player/player.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://bf2u3xkeae6u4" path="res://assets/models/box_A_0.png" id="2_85g3d"]
+[ext_resource type="PackedScene" uid="uid://ybph0otvxi86" path="res://assets/models/Pumpkin.glb" id="2_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://bheqf2ssbh6p3" path="res://assets/models/Market Stalls Compact.glb" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://c5gw3g5ob83nd" path="res://assets/models/Apple - Red.glb" id="3_tipki"]
+[ext_resource type="Script" uid="uid://cs05o5ykbityw" path="res://assets/models/market_stalls_compact.gd" id="4_choun"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bsiif6ptjeiqm" path="res://assets/models/Green Pepper.glb" id="7_85g3d"]
+[ext_resource type="PackedScene" uid="uid://boco7umowkybu" path="res://assets/models/box_A.fbx" id="7_choun"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
 size = Vector3(5, 0.1, 5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya4ey"]
+albedo_texture = ExtResource("2_85g3d")
+
 [sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
 size = Vector3(5, 0.1, 5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_tipki"]
+size = Vector3(5, 3, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_85g3d"]
+
 [node name="Main" type="Node3D" unique_id=1708190583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03623402)
 script = ExtResource("1_0wfyh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1687127451]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=452598525]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+[node name="Environnement" type="Node3D" parent="." unique_id=186858996]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=586270220]
+[node name="FloorGround" type="StaticBody3D" parent="Environnement" unique_id=452598525]
+transform = Transform3D(0.92652863, 0, -0.37622428, 0, 1, 0, 0.37622428, 0, 0.92652863, 0, -0.050577022, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environnement/FloorGround" unique_id=586270220]
 shape = SubResource("BoxShape3D_sgp6g")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1452281192]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environnement/FloorGround" unique_id=1452281192]
+transform = Transform3D(0.92609465, 0, 0.37729132, 0, 1, 0, -0.37729132, 0, 0.92609465, 0.0030460134, -0.026321761, 0.012986286)
+material_override = SubResource("StandardMaterial3D_ya4ey")
 mesh = SubResource("BoxMesh_o5qli")
 
+[node name="WallBack" type="StaticBody3D" parent="Environnement" unique_id=1183901783]
+
+[node name="Mesh" type="MeshInstance3D" parent="Environnement/WallBack" unique_id=1993110195]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0.043984115, 1.572, -2.023459)
+mesh = SubResource("BoxMesh_tipki")
+
+[node name="Shape" type="CollisionShape3D" parent="Environnement/WallBack" unique_id=1388363210]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="WallLeft" type="StaticBody3D" parent="Environnement" unique_id=48654]
+visible = false
+
+[node name="WallRight" type="StaticBody3D" parent="Environnement" unique_id=1087588067]
+visible = false
+
+[node name="Ceiling" type="StaticBody3D" parent="Environnement" unique_id=76981016]
+visible = false
+
+[node name="MarketStalls" parent="Environnement" unique_id=759266011 instance=ExtResource("2_tbgi4")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.19917673, 0.021, -1.3010103)
+script = ExtResource("4_choun")
+
+[node name="Pumpkin" parent="Environnement" unique_id=1233419860 instance=ExtResource("2_o6xl0")]
+transform = Transform3D(0.18620479, 0, -0.07299161, 0, 0.2, 0, 0.07299161, 0, 0.18620479, 0.5520773, 0.9526082, -0.7748441)
+
+[node name="Green Pepper" parent="Environnement" unique_id=324723632 instance=ExtResource("7_85g3d")]
+transform = Transform3D(0.02346553, 0, 0.018691417, 0, 0.03, 0, -0.018691417, 0, 0.02346553, 0.41017503, 0.67593426, -0.083307)
+
+[node name="Apple - Red" parent="Environnement" unique_id=509917915 instance=ExtResource("3_tipki")]
+transform = Transform3D(-4.656613e-10, -0.01, 1.3877788e-17, -4.3711385e-10, 1.9106855e-17, 0.009999999, -0.009999999, 4.656613e-10, -4.371138e-10, -0.31531137, 0.8754633, -1.2472265)
+
+[node name="Apple - Red2" parent="Environnement" unique_id=2033910836 instance=ExtResource("3_tipki")]
+transform = Transform3D(0.009999999, 0, 1.3877788e-17, 0, -4.3711387e-10, 0.009999999, 0, -0.01, -4.371138e-10, 0.79463524, 0.6447691, 0.07657145)
+
+[node name="box" parent="Environnement" unique_id=113889428 instance=ExtResource("7_choun")]
+transform = Transform3D(0.93102396, 0, -0.3647966, 0, 1, 0, 0.36495805, 0, 0.9306121, -0.4339791, 0.618, -0.73525834)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environnement/box" unique_id=1022058727]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environnement/box/StaticBody3D" unique_id=1460785961]
+
 [node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
+
+[node name="PlayerBody" parent="Player" unique_id=1711598484 instance=ExtResource("4_tefeu")]
