@@ -1,23 +1,21 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://4e23rvtygss8"]
 
 [ext_resource type="Script" uid="uid://8eec2effogim" path="res://scenes/bot/bot.gd" id="1_bot"]
 [ext_resource type="PackedScene" uid="uid://m4nt8iru5vda" path="res://assets/models/bot/Remy.fbx" id="2_model"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
-radius = 0.3
-height = 1.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_vj5hl"]
+size = Vector3(0.89697266, 2.4348145, 0.6001587)
 
-[node name="Bot" type="CharacterBody3D"]
+[node name="Bot" type="CharacterBody3D" unique_id=2096240146]
 script = ExtResource("1_bot")
 
-[node name="Model" parent="." instance=ExtResource("2_model")]
-scale = Vector3(0.69, 0.69, 0.69)
+[node name="Model" parent="." unique_id=1034938254 instance=ExtResource("2_model")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_body")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1094679736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.051513672, 1.2011036, 0.0008239746)
+shape = SubResource("BoxShape3D_vj5hl")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1958486019]
 path_desired_distance = 0.5
-target_desired_distance = 1.0
 avoidance_enabled = true
