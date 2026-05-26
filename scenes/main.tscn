@@ -97,9 +97,6 @@ transform = Transform3D(0.93102396, 0, -0.3647966, 0, 1, 0, 0.36495805, 0, 0.930
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environnement/box/StaticBody3D" unique_id=1460785961]
 
-[node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
-
-[node name="PlayerBody" parent="Player" unique_id=1711598484 instance=ExtResource("4_tefeu")]
 [node name="TomatoStand" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.25, 0)
 
