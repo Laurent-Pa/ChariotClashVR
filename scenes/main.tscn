@@ -150,3 +150,39 @@ offset_right = 320.0
 offset_bottom = 44.0
 value = 100.0
 show_percentage = false
+fill_mode = 1
+
+[node name="DeathUI" type="Control" parent="UI/Root"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Fade" type="ColorRect" parent="UI/Root/DeathUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0)
+
+[node name="Panel" type="Panel" parent="UI/Root/DeathUI"]
+anchors_preset = 8
+anchor_left = 0.3
+anchor_top = 0.35
+anchor_right = 0.7
+anchor_bottom = 0.65
+
+[node name="VBox" type="VBoxContainer" parent="UI/Root/DeathUI/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+
+[node name="Title" type="Label" parent="UI/Root/DeathUI/Panel/VBox"]
+text = "Vous etes morts"
+horizontal_alignment = 1
+
+[node name="RespawnButton" type="Button" parent="UI/Root/DeathUI/Panel/VBox"]
+text = "Reapparaitre"
