@@ -2,13 +2,16 @@ extends CharacterBody3D
 
 enum State { IDLE, CHASE, ATTACK, HIT, DEAD }
 
-@export var move_speed: float = 3.0
+@export var move_speed: float = 1.4
 @export var chase_range: float = 8.0
 @export var attack_range: float = 1.5
 @export var rotation_speed: float = 5.0
 @export var attack_cooldown: float = 1.5
 @export var max_health: int = 100
-@export var attack_damage: int = 10
+@export var attack_damage: int = 20
+@export var avoid_distance: float = 1.2
+@export var avoid_side_distance: float = 0.9
+@export var avoid_collision_mask: int = 1
 
 var current_state: State = State.IDLE
 var health: int
@@ -27,6 +30,8 @@ func _ready() -> void:
 	_find_player()
 	nav_agent.path_desired_distance = 0.5
 	nav_agent.target_desired_distance = attack_range * 0.8
+	nav_agent.max_speed = move_speed
+	nav_agent.velocity_computed.connect(_on_nav_velocity_computed)
 
 
 func _physics_process(delta: float) -> void:
@@ -54,7 +59,7 @@ func _process_idle(delta: float) -> void:
 		_find_player()
 		return
 
-	var distance = global_position.distance_to(player.global_position)
+	var distance = _flat_distance_to_player()
 	if distance < chase_range:
 		current_state = State.CHASE
 		nav_agent.target_position = player.global_position
@@ -67,7 +72,7 @@ func _process_chase(delta: float) -> void:
 
 	nav_agent.target_position = player.global_position
 
-	var distance = global_position.distance_to(player.global_position)
+	var distance = _flat_distance_to_player()
 	if distance <= attack_range:
 		current_state = State.ATTACK
 		attack_timer = attack_cooldown
@@ -78,14 +83,21 @@ func _process_chase(delta: float) -> void:
 		return
 
 	var next_pos = nav_agent.get_next_path_position()
-	var direction = (next_pos - global_position).normalized()
+	var direction = next_pos - global_position
 	direction.y = 0.0
+	if direction.length() < 0.01:
+		# Fallback when no navigation path is available.
+		direction = player.global_position - global_position
+		direction.y = 0.0
 
-	velocity = direction * move_speed
-	velocity.y = 0.0
+	direction = direction.normalized()
+
+	direction = _get_avoid_direction(direction)
+	var desired_velocity = direction * move_speed
+	desired_velocity.y = 0.0
 
 	_smooth_rotate(direction, delta)
-	move_and_slide()
+	nav_agent.set_velocity(desired_velocity)
 
 
 func _process_attack(delta: float) -> void:
@@ -104,8 +116,10 @@ func _process_attack(delta: float) -> void:
 
 	if attack_timer <= 0.0:
 		attack_timer = attack_cooldown
+		if player and player.has_method("take_damage"):
+			player.call("take_damage", attack_damage)
 
-	var distance = global_position.distance_to(player.global_position)
+	var distance = _flat_distance_to_player()
 	if distance > attack_range * 1.2:
 		current_state = State.CHASE
 
@@ -118,6 +132,53 @@ func _process_hit(delta: float) -> void:
 func _process_dead(delta: float) -> void:
 	velocity = Vector3.ZERO
 	move_and_slide()
+
+
+func _on_nav_velocity_computed(safe_velocity: Vector3) -> void:
+	velocity = safe_velocity
+	velocity.y = 0.0
+	move_and_slide()
+
+
+func _get_avoid_direction(desired_direction: Vector3) -> Vector3:
+	if desired_direction == Vector3.ZERO:
+		return desired_direction
+
+	var origin = global_position + Vector3(0, 0.9, 0)
+	if _ray_hit(origin, desired_direction, avoid_distance):
+		var left = Vector3(-desired_direction.z, 0.0, desired_direction.x).normalized()
+		var right = Vector3(desired_direction.z, 0.0, -desired_direction.x).normalized()
+		var left_clear = not _ray_hit(origin, left, avoid_side_distance)
+		var right_clear = not _ray_hit(origin, right, avoid_side_distance)
+		if left_clear and not right_clear:
+			return left
+		if right_clear and not left_clear:
+			return right
+		if left_clear and right_clear:
+			return left
+
+	return desired_direction
+
+
+func _ray_hit(origin: Vector3, direction: Vector3, distance: float) -> bool:
+	var space_state = get_world_3d().direct_space_state
+	var params = PhysicsRayQueryParameters3D.create(
+		origin,
+		origin + direction * distance,
+		avoid_collision_mask
+	)
+	params.exclude = [self]
+	return not space_state.intersect_ray(params).is_empty()
+
+
+func _flat_distance_to_player() -> float:
+	if not player:
+		return INF
+	var from_pos = global_position
+	var to_pos = player.global_position
+	from_pos.y = 0.0
+	to_pos.y = 0.0
+	return from_pos.distance_to(to_pos)
 
 
 func _smooth_rotate(direction: Vector3, delta: float) -> void:
