@@ -48,6 +48,8 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 transform = Transform3D(0.92652863, 0, -0.37622428, 0, 1, 0, 0.37622428, 0, 0.92652863, 0, -0.050577022, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environnement/FloorGround" unique_id=586270220]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 2
 shape = SubResource("BoxShape3D_sgp6g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environnement/FloorGround" unique_id=1452281192]
@@ -110,11 +112,13 @@ mesh = SubResource("BoxMesh_stand")
 navigation_mesh = SubResource("NavigationMesh_arena")
 
 [node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9083794, 0)
 
 [node name="PlayerBody" parent="Player" unique_id=200242446 instance=ExtResource("3_tbgi4")]
+collision_layer = 524288
 
 [node name="Tomato" parent="." unique_id=797523953 instance=ExtResource("1_tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.62, 0)
 
 [node name="Bot" parent="." unique_id=1429703082 instance=ExtResource("1_bot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09482932, 0, -3.6045294)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09482932, 0, 0.36925375)
