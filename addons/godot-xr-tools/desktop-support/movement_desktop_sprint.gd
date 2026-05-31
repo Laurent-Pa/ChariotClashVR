@@ -46,13 +46,6 @@ var _sprint_button_down : bool = false
 var _direct_original_max_speed : float = 0.0
 
 
-# XRStart node
-@onready var xr_start_node = XRTools.find_xr_child(
-	XRTools.find_xr_ancestor(self,
-	"*Staging",
-	"XRToolsStaging"),"StartXR","Node")
-
-
 # Variable used to cache left controller direct movement function, if any
 @onready var _desktop_direct_move := XRToolsDesktopMovementDirect.find(self)
 
@@ -72,7 +65,7 @@ func _ready():
 # Perform sprinting
 func physics_movement(_delta: float, player_body: XRToolsPlayerBody, disabled: bool):
 	# Skip if the controller isn't active or is not enabled
-	if !player_body.enabled or xr_start_node.is_xr_active() or disabled == true or !enabled:
+	if disabled == true or !enabled:
 		set_sprinting(false)
 		return
 
