@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_gmlin"]
 [ext_resource type="PackedScene" uid="uid://6uusxts6n6gm" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_direct.tscn" id="3_lvxji"]
 [ext_resource type="PackedScene" uid="uid://c4d13r420hnx2" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_turn.tscn" id="4_p47bc"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="8_vrmove"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="9_vrturn"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="10_pickup"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_75vfm"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="6_player_script"]
 [ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_hud"]
@@ -79,11 +82,18 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="LeftHand" unique_id=1781683330 instance=ExtResource("1_dovo2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12095064, 0)
 
+[node name="MovementDirect" parent="LeftHand" instance=ExtResource("8_vrmove")]
+strafe = true
+
+[node name="FunctionPickup" parent="LeftHand" instance=ExtResource("10_pickup")]
+
 [node name="RightHand" type="XRController3D" parent="." unique_id=1003276543]
 tracker = &"right_hand"
 
 [node name="RightHand" parent="RightHand" unique_id=263338916 instance=ExtResource("2_gmlin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12587953, 0)
+
+[node name="MovementTurn" parent="RightHand" instance=ExtResource("9_vrturn")]
 
 [node name="MovementDesktopDirect" parent="." unique_id=131538683 instance=ExtResource("3_lvxji")]
 
