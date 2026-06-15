@@ -16,6 +16,7 @@ enum State { IDLE, CHASE, ATTACK, HIT, DEAD }
 
 var current_state: State = State.IDLE
 var health: int
+var attack_timer: float = 0.0
 var _spawn_position: Vector3
 var _spawn_rotation: float
 var _fall_tween: Tween
