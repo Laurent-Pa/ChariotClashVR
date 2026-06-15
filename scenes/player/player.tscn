@@ -95,6 +95,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12587953, 0)
 
 [node name="MovementTurn" parent="RightHand" instance=ExtResource("9_vrturn")]
 
+[node name="FunctionPickup" parent="RightHand" instance=ExtResource("10_pickup")]
+
 [node name="MovementDesktopDirect" parent="." unique_id=131538683 instance=ExtResource("3_lvxji")]
 
 [node name="MovementDesktopTurn" parent="." unique_id=227154867 instance=ExtResource("4_p47bc")]
