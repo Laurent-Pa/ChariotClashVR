@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://xqimcf20s2jp" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_fullglove_low.tscn" id="2_gmlin"]
 [ext_resource type="PackedScene" uid="uid://6uusxts6n6gm" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_direct.tscn" id="3_lvxji"]
 [ext_resource type="PackedScene" uid="uid://c4d13r420hnx2" path="res://addons/godot-xr-tools/desktop-support/movement_desktop_turn.tscn" id="4_p47bc"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://cfpckymb1ascg" path="res://scenes/player/player.gd" id="6_player_script"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_hud"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="8_vrmove"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="9_vrturn"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="10_pickup"]
-[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_75vfm"]
-[ext_resource type="Script" path="res://scenes/player/player.gd" id="6_player_script"]
-[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="7_hud"]
 
 [node name="Player" type="XROrigin3D" unique_id=1954827418]
 script = ExtResource("6_player_script")
@@ -18,63 +18,10 @@ script = ExtResource("6_player_script")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9793725, 0)
 current = true
 
-[node name="HUD" parent="XRCamera3D" instance=ExtResource("7_hud")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, -0.15, -0.9)
-rotation_degrees = Vector3(0, 180, 0)
-
-[node name="Viewport" parent="XRCamera3D/HUD"]
-size = Vector2i(512, 128)
-render_target_update_mode = 2
-
-[node name="HealthUI" type="Control" parent="XRCamera3D/HUD/Viewport"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="HealthBar" type="ProgressBar" parent="XRCamera3D/HUD/Viewport/HealthUI"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 290.0
-offset_bottom = 28.0
-min_value = 0.0
-max_value = 100.0
-value = 100.0
-show_percentage = false
-fill_mode = 1
-
-[node name="DeathUI" type="Control" parent="XRCamera3D/HUD/Viewport/HealthUI"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Fade" type="ColorRect" parent="XRCamera3D/HUD/Viewport/HealthUI/DeathUI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 0)
-
-[node name="Panel" type="Panel" parent="XRCamera3D/HUD/Viewport/HealthUI/DeathUI"]
-anchor_left = 0.25
-anchor_top = 0.35
-anchor_right = 0.75
-anchor_bottom = 0.65
-
-[node name="VBox" type="VBoxContainer" parent="XRCamera3D/HUD/Viewport/HealthUI/DeathUI/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = -12.0
-offset_bottom = -8.0
-
-[node name="Title" type="Label" parent="XRCamera3D/HUD/Viewport/HealthUI/DeathUI/Panel/VBox"]
-text = "Vous etes morts"
-horizontal_alignment = 1
-
-[node name="RespawnButton" type="Button" parent="XRCamera3D/HUD/Viewport/HealthUI/DeathUI/Panel/VBox"]
-text = "Reapparaitre"
-
-[node name="Screen" parent="XRCamera3D/HUD"]
-surface_material_override/0/cull_mode = 0
-scale = Vector3(1, 1, -1)
+[node name="HUD" parent="XRCamera3D" unique_id=1518332084 instance=ExtResource("7_hud")]
+transform = Transform3D(-0.35, 0, -3.059797e-08, 0, 0.35, 0, 3.059797e-08, 0, -0.35, 0, -0.15, -0.9)
+transparent = 1
+scene_properties_keys = PackedStringArray()
 
 [node name="LeftHand" type="XRController3D" parent="." unique_id=1348590199]
 tracker = &"left_hand"
@@ -82,10 +29,12 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="LeftHand" unique_id=1781683330 instance=ExtResource("1_dovo2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12095064, 0)
 
-[node name="MovementDirect" parent="LeftHand" instance=ExtResource("8_vrmove")]
+[node name="MovementDirect" parent="LeftHand" unique_id=1387023003 instance=ExtResource("8_vrmove")]
 strafe = true
 
-[node name="FunctionPickup" parent="LeftHand" instance=ExtResource("10_pickup")]
+[node name="FunctionPickup" parent="LeftHand" unique_id=2031355824 instance=ExtResource("10_pickup")]
+impulse_factor = 2.0
+velocity_samples = 8
 
 [node name="RightHand" type="XRController3D" parent="." unique_id=1003276543]
 tracker = &"right_hand"
@@ -93,9 +42,11 @@ tracker = &"right_hand"
 [node name="RightHand" parent="RightHand" unique_id=263338916 instance=ExtResource("2_gmlin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12587953, 0)
 
-[node name="MovementTurn" parent="RightHand" instance=ExtResource("9_vrturn")]
+[node name="MovementTurn" parent="RightHand" unique_id=767054540 instance=ExtResource("9_vrturn")]
 
-[node name="FunctionPickup" parent="RightHand" instance=ExtResource("10_pickup")]
+[node name="FunctionPickup" parent="RightHand" unique_id=1907354175 instance=ExtResource("10_pickup")]
+impulse_factor = 2.0
+velocity_samples = 8
 
 [node name="MovementDesktopDirect" parent="." unique_id=131538683 instance=ExtResource("3_lvxji")]
 

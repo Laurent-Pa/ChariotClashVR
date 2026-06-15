@@ -1,7 +1,7 @@
 extends XRToolsPickable
 class_name TomatoPickable
 
-@export var damage: int = 50
+@export var damage: int = 100
 @export var arm_delay: float = 0.2
 
 var _armed: bool = false

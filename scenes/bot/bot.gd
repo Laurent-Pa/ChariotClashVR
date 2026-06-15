@@ -8,6 +8,7 @@ enum State { IDLE, CHASE, ATTACK, HIT, DEAD }
 @export var rotation_speed: float = 5.0
 @export var attack_cooldown: float = 1.5
 @export var max_health: int = 100
+@export var respawn_delay: float = 3.0
 @export var attack_damage: int = 20
 @export var avoid_distance: float = 1.2
 @export var avoid_side_distance: float = 0.9
@@ -15,7 +16,9 @@ enum State { IDLE, CHASE, ATTACK, HIT, DEAD }
 
 var current_state: State = State.IDLE
 var health: int
-var attack_timer: float = 0.0
+var _spawn_position: Vector3
+var _spawn_rotation: float
+var _fall_tween: Tween
 var player: Node3D
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
@@ -26,6 +29,8 @@ signal bot_hit(damage: int)
 
 
 func _ready() -> void:
+	_spawn_position = global_position
+	_spawn_rotation = rotation.y
 	health = max_health
 	_find_player()
 	nav_agent.path_desired_distance = 0.5
@@ -198,6 +203,7 @@ func take_damage(damage: int) -> void:
 		health = 0
 		current_state = State.DEAD
 		bot_died.emit()
+		_start_respawn()
 		return
 	current_state = State.HIT
 	await get_tree().create_timer(0.5).timeout
@@ -208,9 +214,22 @@ func take_damage(damage: int) -> void:
 func die() -> void:
 	current_state = State.DEAD
 	bot_died.emit()
-	queue_free()
+	_start_respawn()
+
+
+func _start_respawn() -> void:
+	$CollisionShape3D.disabled = true
+	_fall_tween = create_tween()
+	_fall_tween.tween_property(model, "rotation_degrees:x", 90.0, 0.4).set_ease(Tween.EASE_IN)
+	_fall_tween.tween_callback(model.set_visible.bind(false)).set_delay(respawn_delay)
+	_fall_tween.tween_callback(respawn)
 
 
 func respawn() -> void:
 	health = max_health
 	current_state = State.IDLE
+	global_position = _spawn_position
+	rotation.y = _spawn_rotation
+	model.visible = true
+	model.rotation_degrees.x = 0.0
+	$CollisionShape3D.disabled = false
