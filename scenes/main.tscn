@@ -149,13 +149,10 @@ mesh = SubResource("BoxMesh_ya4ey")
 navigation_mesh = SubResource("NavigationMesh_arena")
 
 [node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
-transform = Transform3D(0.99563235, 0, -0.09336112, 0, 1, 0, 0.09336112, 0, 0.99563235, 0.10546577, 4.352297, 2.9133668)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Tomato" parent="." unique_id=797523953 instance=ExtResource("1_tomato")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9687654, 1.3980107, 1.6733776)
-freeze_mode = 0
-contact_monitor = false
-max_contacts_reported = 0
 
 [node name="Bot" parent="." unique_id=1429703082 instance=ExtResource("1_bot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09482932, 0, -4.344366)
