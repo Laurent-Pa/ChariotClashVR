@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="8_vrmove"]
 [ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="9_vrturn"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="10_pickup"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="11_pointer"]
 
 [node name="Player" type="XROrigin3D" unique_id=1954827418]
 script = ExtResource("6_player_script")
@@ -86,8 +87,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12095064, 0)
 strafe = true
 
 [node name="FunctionPickup" parent="LeftHand" unique_id=2031355824 instance=ExtResource("10_pickup")]
+grab_distance = 0.8
 impulse_factor = 2.0
 velocity_samples = 8
+
+[node name="FunctionPointer" parent="LeftHand" instance=ExtResource("11_pointer")]
 
 [node name="RightHand" type="XRController3D" parent="." unique_id=1003276543]
 tracker = &"right_hand"
@@ -98,8 +102,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12587953, 0)
 [node name="MovementTurn" parent="RightHand" unique_id=767054540 instance=ExtResource("9_vrturn")]
 
 [node name="FunctionPickup" parent="RightHand" unique_id=1907354175 instance=ExtResource("10_pickup")]
+grab_distance = 0.8
 impulse_factor = 2.0
 velocity_samples = 8
+
+[node name="FunctionPointer" parent="RightHand" instance=ExtResource("11_pointer")]
 
 [node name="MovementDesktopDirect" parent="." unique_id=131538683 instance=ExtResource("3_lvxji")]
 

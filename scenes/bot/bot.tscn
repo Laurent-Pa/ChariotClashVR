@@ -7,6 +7,7 @@
 size = Vector3(0.89697266, 2.4348145, 0.6001587)
 
 [node name="Bot" type="CharacterBody3D" unique_id=2096240146]
+collision_mask = 7
 script = ExtResource("1_bot")
 
 [node name="Model" parent="." unique_id=1034938254 instance=ExtResource("2_model")]

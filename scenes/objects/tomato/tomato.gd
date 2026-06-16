@@ -7,7 +7,6 @@ class_name TomatoPickable
 
 var _armed: bool = false
 var _ground_timer: float = 0.0
-var _was_on_floor: bool = false
 
 
 func _ready() -> void:
@@ -27,22 +26,30 @@ func _arm_after_delay() -> void:
 func _physics_process(delta: float) -> void:
 	if is_picked_up():
 		_ground_timer = 0.0
-		_was_on_floor = false
 		return
 
 	if _armed and not is_picked_up():
-		var on_floor = get_contact_count() > 0
+		var on_floor = _check_floor()
 		if on_floor:
-			if _was_on_floor:
-				_ground_timer += delta
-				if _ground_timer >= despawn_time:
-					queue_free()
-			else:
-				_was_on_floor = true
-				_ground_timer = 0.0
+			_ground_timer += delta
+			if _ground_timer >= despawn_time:
+				queue_free()
 		else:
-			_was_on_floor = false
 			_ground_timer = 0.0
+
+
+func _check_floor() -> bool:
+	if get_contact_count() > 0:
+		return true
+	var space_state = get_world_3d().direct_space_state
+	var origin = global_position
+	var params = PhysicsRayQueryParameters3D.create(
+		origin,
+		origin + Vector3.DOWN * 0.3,
+		collision_mask
+	)
+	params.exclude = [self.get_rid()]
+	return not space_state.intersect_ray(params).is_empty()
 
 
 func _on_body_entered(body: Node) -> void:
