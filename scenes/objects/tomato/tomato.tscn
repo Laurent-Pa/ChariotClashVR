@@ -16,6 +16,9 @@ material = SubResource("StandardMaterial3D_1")
 [node name="Tomato" type="RigidBody3D"]
 collision_layer = 4
 collision_mask = 196615
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_tomato_script")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

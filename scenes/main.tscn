@@ -31,10 +31,10 @@ size = Vector3(10, 3, 0.1)
 size = Vector3(1.8734131, 0.8302002, 1.9777832)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_stand"]
-size = Vector3(0.4, 1, 0.4)
+size = Vector3(0.4, 2, 0.4)
 
-[sub_resource type="BoxMesh" id="BoxMesh_stand"]
-size = Vector3(0.4, 1, 0.4)
+[sub_resource type="BoxMesh" id="BoxMesh_ya4ey"]
+size = Vector3(0.4, 2, 0.4)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_arena"]
 
@@ -119,12 +119,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.2999344)
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -4.3711385e-08, 4.9580398, 1.4626284, -4.2775464)
 mesh = SubResource("BoxMesh_tipki")
 
+[node name="Shape" type="CollisionShape3D" parent="Environnement/WallBack2" unique_id=2066658707]
+transform = Transform3D(0.03716693, 0, 0.99930906, 0, 1, 0, -0.99930906, 0, 0.03716693, 4.751415, 1.473, -4.22043)
+shape = SubResource("BoxShape3D_85g3d")
+
 [node name="WallBack4" type="StaticBody3D" parent="Environnement" unique_id=142320895]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.979236, 0, 4.349637)
 
 [node name="Mesh" type="MeshInstance3D" parent="Environnement/WallBack4" unique_id=1445452419]
 transform = Transform3D(-4.3711385e-08, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, -4.3711385e-08, 4.9580398, 1.4626284, -4.2775464)
 mesh = SubResource("BoxMesh_tipki")
+
+[node name="Shape" type="CollisionShape3D" parent="Environnement/WallBack4" unique_id=546514072]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 4.991023, 1.473, -4.22043)
+shape = SubResource("BoxShape3D_85g3d")
 
 [node name="TomatoStand" type="StaticBody3D" parent="." unique_id=395653883]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.25, 0)
@@ -135,16 +143,19 @@ shape = SubResource("BoxShape3D_stand")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TomatoStand" unique_id=687117028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7480509, 0.029589891, 1.666396)
-mesh = SubResource("BoxMesh_stand")
+mesh = SubResource("BoxMesh_ya4ey")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=2022494980]
 navigation_mesh = SubResource("NavigationMesh_arena")
 
 [node name="Player" parent="." unique_id=1954827418 instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10546577, 4.9506283, 2.9133668)
+transform = Transform3D(0.99563235, 0, -0.09336112, 0, 1, 0, 0.09336112, 0, 0.99563235, 0.10546577, 4.352297, 2.9133668)
 
 [node name="Tomato" parent="." unique_id=797523953 instance=ExtResource("1_tomato")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9632471, 0.9174547, 1.7024254)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9687654, 1.3980107, 1.6733776)
+freeze_mode = 0
+contact_monitor = false
+max_contacts_reported = 0
 
 [node name="Bot" parent="." unique_id=1429703082 instance=ExtResource("1_bot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09482932, 0, -4.344366)
